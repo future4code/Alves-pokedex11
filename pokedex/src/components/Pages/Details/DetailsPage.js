@@ -2,7 +2,9 @@ import React from 'react'
 
 function DetailsPage() {
   return (
-    <div>DetailsPage</div>
+    <div>
+      <h1>DetailsPage</h1>
+    </div>
   )
 }
 
