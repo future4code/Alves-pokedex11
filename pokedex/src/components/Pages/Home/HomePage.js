@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import{goDetailPage} from '../../../Routes/coordinator'
+import{goDetailPage,goToPokedexPage} from '../../../Routes/coordinator'
+import Header from '../../Header/Header'
 
 function HomePage() {
   const navigate = useNavigate()
@@ -9,7 +10,8 @@ function HomePage() {
 
   return (
     <div>
-      <h1>HomePage</h1>
+      <Header title ={"lista pokemons"} HeaderButton ={() => goToPokedexPage(navigate)}/>
+      <h1>Todos Pokémons</h1>
         <button onClick={() =>goDetailPage(navigate)}>Detalhes</button>
     </div>
   )

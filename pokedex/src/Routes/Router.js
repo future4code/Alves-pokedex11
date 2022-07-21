@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from '../components/Header/Header'
 import DetailsPage from '../components/Pages/Details/DetailsPage'
 import HomePage from '../components/Pages/Home/HomePage'
 import PokedexPage from '../components/Pages/Pokedex/PokedexPage'
@@ -9,7 +8,6 @@ function Router() {
   return (
     <div>
      <BrowserRouter>
-     <Header/>
       <Routes>
         <Route index element={<HomePage/>}/>
         <Route path = "details" element = {<DetailsPage/>}/>

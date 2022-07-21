@@ -1,18 +1,32 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import{goToPokedexPage,goHomePage} from '../../Routes/coordinator'
+import {HeaderContainer, ButtonHeader, Logo, Titulo} from './styled'
+import Pokelogo from '../../img/Pokelogo.png'
 
-function Header() {
-const navigate = useNavigate()
+function Header({title, HeaderButton}) {
+
+
+const ButtonTitle = () =>{
+    switch (title){
+      case 'lista pokemons':
+        return 'Pokedex'
+      case 'pokedex':
+        return 'Lista de Pokemons'  
+      default:
+      return 'Voltar'
+    }
+
+
+}
 
 
 
   return (
-    <div>
-        <button onClick={() => goToPokedexPage(navigate)}> Ir para Pokedex</button>
-        <button onClick={() => goHomePage(navigate)}>Home</button>
+    <HeaderContainer>
+      <Logo src ={Pokelogo}/>
+        <ButtonHeader onClick={HeaderButton}>{ButtonTitle()}</ButtonHeader>
+        <Titulo>{title}</Titulo>
 
-    </div>
+    </HeaderContainer>
 
 
   )
