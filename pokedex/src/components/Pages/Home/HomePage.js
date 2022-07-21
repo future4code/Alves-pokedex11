@@ -1,68 +1,25 @@
-import React, { useEffect, useState} from 'react'
+import React, { useContext } from 'react'
+import GlobalStateContext from '../../../Global/GlobalStateContext'
 import { useNavigate } from 'react-router-dom'
 import{goDetailPage,goToPokedexPage} from '../../../Routes/coordinator'
 import {PokeCardContainer, PokeImg, PokeCard, ButtonContainer, Button, Titulo} from './styled'
 import Header from '../../Header/Header'
-import axios from 'axios'
 
 function HomePage() {
   const navigate = useNavigate()
-  const [pokemonNames,setPokemonNames] = useState([])
-  const [pokemons, setPokemons] = useState([]);
+  const {pokemons,pokemonNames } = useContext(GlobalStateContext)
 
-
-
-  useEffect(() =>{
-    getPokemonNames()
-
-  },[])
-
-  useEffect(() => {
-    const newList = [];
-    pokemonNames.forEach((item) => {
-      axios
-        .get(`https://pokeapi.co/api/v2/pokemon/${item.name}`)
-        .then((response) => {
-          newList.push(response.data);
-          if (newList.length === 20) {
-            const orderedList = newList.sort((a, b) => {
-              return a.id - b.id;
-            });
-            setPokemons(orderedList);
-          }
-        })
-        .catch((error) => console.log(error.message));
-    });
-  }, [pokemonNames]);
-
-  console.log(pokemons)
-
-  const getPokemonNames = () => {
-    axios.get(' https://pokeapi.co/api/v2/pokemon/')
-
-    .then((resp ) =>{
-      setPokemonNames(resp.data.results)
-
-    })
-    .catch((err) =>{
-      console.log(err)
-
-    })
-
-
-  }
 
   const PokeListDetail = pokemons && pokemons.map((detail) =>{
     return(
-      <div>
+      <div key = {detail.id}>
       <PokeCard>
         <PokeImg src = {detail.sprites.front_default}/>
-        
-        
+        <p>{detail.name}</p>
       </PokeCard>
       <ButtonContainer>
       <Button>Adicionar a Pokedex</Button>
-      <Button onClick={() =>goDetailPage(navigate)}>Detalhes</Button>
+      <Button onClick={() =>goDetailPage(navigate, detail.name)}>Detalhes</Button>
       </ButtonContainer>
       </div>
     )
