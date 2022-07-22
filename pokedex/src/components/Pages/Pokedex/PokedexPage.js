@@ -12,7 +12,6 @@ const navigate = useNavigate()
     <div>
       <Header title = {"pokedex"} HeaderButton ={() => goHomePage(navigate)}/>
       <h1>Meus Pokémons</h1>
-      <button onClick={() => goDetailPage(navigate)}>Detalhes</button>
     </div>
   )
 }

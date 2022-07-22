@@ -2,6 +2,7 @@ import React,{ useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Header from '../../Header/Header'
 import {goBack} from '../../../Routes/coordinator'
+import {DetailsBackground, Title, DetailContainer, FrontSprite, BackSprite, StatusContainer, MoveContainer , TypeStyle, PokeNameTitle, ImgPoke} from "./styled"
 import axios from 'axios'
 
 
@@ -12,6 +13,8 @@ function DetailsPage() {
  const [pokeFrontImage, setPokeFrontImage] = useState({})
  const [pokeBackImage, setPokeBackImage] = useState({})
  const [pokeStats, setpokeStats] = useState([])
+ const [pokeMoves, setpokeMoves] = useState([])
+ const [pokeType, setpokeType] = useState([])
 
  
  useEffect(() =>{
@@ -28,6 +31,8 @@ function DetailsPage() {
     setPokeFrontImage(resp.data.sprites.front_default)
     setPokeBackImage(resp.data.sprites.back_default)
     setpokeStats(resp.data.stats)
+    setpokeMoves(resp.data.moves)
+    setpokeType(resp.data.types)
 
   }).catch((err)=>{
     console.log(err)
@@ -36,29 +41,61 @@ function DetailsPage() {
 
  }
 
-
 const PokeStatusName = pokeStats && pokeStats.map((stats)=>{
   return(
-    <p>{stats.stat.name}</p>
+    <div key ={stats.stat.name}>
+    <strong>{stats.stat.name}:</strong>
+    <p>{stats.base_stat}</p>
+    </div>
   )
 
+
+})
+
+const MoveList = pokeMoves && pokeMoves.map((move, index) =>{
+    return(
+      index < 5 && <p key = {move.move.name} >{move.move.name}</p>
+    )
+
+})
+
+const TypePokemon = pokeType && pokeType.map((type) =>{
+    return(
+      <div>
+        <ul>
+      <TypeStyle key ={type.type.name} >{type.type.name}</TypeStyle>
+        </ul>
+      </div>
+    )
 
 })
 
 
   return (
     <div>
-      <Header HeaderButton = {() => goBack(navigate)}/>
-      <h1>DetailsPage</h1>
-      <p>{PokeName}</p>
-      <img src={pokeFrontImage}></img>
-      <img src={pokeBackImage}></img>
+    <Header HeaderButton = {() => goBack(navigate)}/>
+    <DetailsBackground>
+      <Title>Detalhes</Title>
+      <DetailContainer>
+      <PokeNameTitle>{PokeName.toLocaleUpperCase()}</PokeNameTitle>
+      <FrontSprite>
+      <ImgPoke src={pokeFrontImage}></ImgPoke>
+      </FrontSprite>
+      <BackSprite>
+      <ImgPoke src={pokeBackImage}></ImgPoke>
+      </BackSprite>
+      <StatusContainer>
       <h1>Status</h1>
       {PokeStatusName}
-      <div>
+      </StatusContainer>
+      <MoveContainer>
+      <h1>Ataques</h1>
+      {MoveList}
+      </MoveContainer>
+      {TypePokemon}
+       </DetailContainer>
 
-      </div>
-
+    </DetailsBackground>
     </div>
   )
 }

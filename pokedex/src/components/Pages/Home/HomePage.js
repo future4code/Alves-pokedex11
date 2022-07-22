@@ -2,24 +2,25 @@ import React, { useContext } from 'react'
 import GlobalStateContext from '../../../Global/GlobalStateContext'
 import { useNavigate } from 'react-router-dom'
 import{goDetailPage,goToPokedexPage} from '../../../Routes/coordinator'
-import {PokeCardContainer, PokeImg, PokeCard, ButtonContainer, Button, Titulo} from './styled'
+import {BackGroundContainer,PokeCardContainer, PokeImg, PokeCard, ButtonContainer, ButtonCatch,ButtonDetails, Titulo, PokeNameTitle} from './styled'
 import Header from '../../Header/Header'
 
 function HomePage() {
   const navigate = useNavigate()
-  const {pokemons,pokemonNames } = useContext(GlobalStateContext)
+  const {pokemons} = useContext(GlobalStateContext)
 
 
   const PokeListDetail = pokemons && pokemons.map((detail) =>{
     return(
       <div key = {detail.id}>
       <PokeCard>
+        <PokeNameTitle>{detail.name.toLocaleUpperCase()}</PokeNameTitle>
         <PokeImg src = {detail.sprites.front_default}/>
-        <p>{detail.name}</p>
+        
       </PokeCard>
       <ButtonContainer>
-      <Button>Adicionar a Pokedex</Button>
-      <Button onClick={() =>goDetailPage(navigate, detail.name)}>Detalhes</Button>
+      <ButtonDetails onClick={() =>goDetailPage(navigate, detail.name)}>Detalhes</ButtonDetails>
+      <ButtonCatch>Capturar</ButtonCatch>
       </ButtonContainer>
       </div>
     )
@@ -27,24 +28,18 @@ function HomePage() {
   })
 
 
-  const pokeList = pokemonNames && pokemonNames.map((poke) =>{
-    return(
-      <div key ={poke.id}>
-        <p>{poke.name}</p>
-      </div>
-    )
-
-  })
-
 
   return (
     <div>
       <Header title ={"lista pokemons"} HeaderButton ={() => goToPokedexPage(navigate)}/>
+    <BackGroundContainer>
+  
       <Titulo>Todos Pokémons</Titulo>
       <PokeCardContainer>
       {PokeListDetail}
       </PokeCardContainer>
         
+    </BackGroundContainer>
     </div>
   )
 }
