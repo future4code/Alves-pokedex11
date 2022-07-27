@@ -1,16 +1,15 @@
 # POKEDEX
 
 Nome dos integrantes: 
-- Pessoa 1
-- Pessoa 2
-- Pessoa 3
+- Jordemar do Desterro Bousquet
+- vinicius peres de lima
+- José Robinaldo Ramos Da Silva Junior
 
-Link do Surge: www.link.com.br
+Link do Surge: snotty-time.surge.sh
 
 O que funciona:
-- Item 1
-- Item 2
+- Pagina Principal com as Listas de Pokemons
+- Pagina de detlahes de Pokemons 
 
 O que não funciona: 
-- Item 3
-- Item 4
+- Adicionar e remover pokemons da Pokedex
